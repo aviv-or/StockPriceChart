@@ -1,0 +1,63 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Stock prices via AlphaVantage API</title>
+  <link
+    href="https://cdn.bokeh.org/bokeh/release/bokeh-1.4.0.min.css"
+    rel="stylesheet" type="text/css">
+  <script src="https://cdn.bokeh.org/bokeh/release/bokeh-1.4.0.min.js"></script>
+  {{ script }}
+  <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='cover.css') }}">
+</head>
+
+<body class="text-center">
+    <br>
+    <div class="cover-container h-50 d-100">
+        {% for message in get_flashed_messages() %}
+            <div class="flash alert alert-success" role="success">{{ message }}</div>
+        {% endfor %}
+    </div>
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+        <header class="masthead mb-auto">
+            <div class="inner">
+            <h3 class="masthead-brand">Stock prices via AlphaVantage API</h3>
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link" href="https://github.com/tobiasbartsch/12DayMilestone">Github</a>
+            </nav>
+            </div>
+        </header>
+
+        <main role="main" class="inner cover">
+            <p class="lead">Enter a ticker symbol and choose to display open, high, low, or close prices (or the trading volume) from the pulldown menu. Data are loaded using the AlphaVantage API.</p>
+            <div class=container>
+                <form action="{{ url_for('new_symbol') }}" method="POST" class="add-entry form-group">
+                    <p>
+                        Symbol: <input type="text" name="symbol" value="{{ current_symbol }}"><br>
+                    </p>
+                    <p>
+                        Price: <select id="value" name="myvalue">
+                            {% for val, sel in values %}
+                                <option value="{{val}}" {% if sel==1 %} selected="selected"{% endif %}>{{val}}</option> 
+                            {% endfor %}
+                        </select>
+                    </p>
+                    <p>
+                        <input type="submit" value="Submit">
+                    </p>
+                </form>
+            </div>
+         <div class="embed-wrapper">
+                {{ div }}
+         </div>
+
+        </main>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
