@@ -24,6 +24,7 @@ plot = stocksplot(apikey, 'MSFT')
 
 @app.route('/')
 def bkapp_page():
+    '''Render the main page.'''
     doc = curdoc()
     graph = plot.stocksplot_plot(doc)
     script, div = components(graph)
@@ -35,6 +36,7 @@ def bkapp_page():
 
 @app.route('/new_symbol', methods=['POST'])
 def new_symbol():
+    '''Load a new ticker symbol, then render the main page.'''
     symbol = request.form['symbol']
     val = request.form['myvalue']
     plot.selected = val
