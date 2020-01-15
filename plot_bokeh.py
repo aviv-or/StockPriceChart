@@ -44,7 +44,8 @@ class stocksplot:
                 data = data.reset_index()
                 self.data = data
                 return 1
-            except:
+            except Exception as inst:
+                print(inst)
                 self.data = old_data
                 self.symbol = old_symbol
                 return 0
